@@ -40,12 +40,13 @@ class MainActivity : AppCompatActivity() {
             override fun onProgressChanged(p0: SeekBar?, p1: Int, p2: Boolean) {
                 tvTipPercentageLabel.text= p1.toString()+"%"
                 // Tip=% of etAmount
-                var Base = etAmount.text.toString().toInt()
-                var TipPercent = p1.toInt()
-                var Tip = (Base*TipPercent*0.01).toInt()
-                Log.i("Main Activity","Base: $Base p1: $p1 Tip percentage: $TipPercent Tip: $Tip ")
-                tvTipAmount.text="$Tip"
-                tvTotalAmount.text=(Base+Tip).toString()
+//                var Base = etAmount.text.toString().toInt()
+//                var TipPercent = p1.toInt()
+//                var Tip = (Base*TipPercent*0.01).toInt()
+//                Log.i("Main Activity","Base: $Base p1: $p1 Tip percentage: $TipPercent Tip: $Tip ")
+//                tvTipAmount.text="$Tip"
+//                tvTotalAmount.text=(Base+Tip).toString()
+                Update()
             }
 
             override fun onStartTrackingTouch(p0: SeekBar?) {}
@@ -59,18 +60,30 @@ class MainActivity : AppCompatActivity() {
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
 
             override fun afterTextChanged(p0: Editable?) {
-                if (p0.toString()=="") return
-
-                // Take Base, tip percentage
-                val Base=p0.toString().toInt()
-                val TipPercentage=seekBar.progress.toInt()
-                tvTipAmount.text=(Base*TipPercentage*0.01).toString()
-                tvTotalAmount.text=((Base*TipPercentage*0.01)+Base).toString()
-                // Update tvTipAmount and tvTotalAmount
-                Log.i("Text Change Listener","Base: $Base Tip percentage: $TipPercentage Tip: ${tvTipAmount.text}")
+//                if (p0.toString()=="") return
+//
+//                // Take Base, tip percentage
+//                val Base=p0.toString().toInt()
+//                val TipPercentage=seekBar.progress.toInt()
+//                tvTipAmount.text=(Base*TipPercentage*0.01).toString()
+//                tvTotalAmount.text=((Base*TipPercentage*0.01)+Base).toString()
+//                // Update tvTipAmount and tvTotalAmount
+//                Log.i("Text Change Listener","Base: $Base Tip percentage: $TipPercentage Tip: ${tvTipAmount.text}")
+                Update()
             }
         })
     }
+    private fun Update() {
+        if (reference.etAmount.text.toString()=="") {
+            reference.tvTipAmount.text=""
+            reference.tvTotalAmount.text=""
+            return
+        }
+        var Base = reference.etAmount.text.toString().toInt()
+        var TipPercent = reference.seekBar.progress
+        var Tip = (Base*TipPercent*0.01).toInt()
 
-
+        this.reference.tvTipAmount.text=Tip.toString()
+        this.reference.tvTotalAmount.text=(Tip+Base).toString()
+    }
 }
