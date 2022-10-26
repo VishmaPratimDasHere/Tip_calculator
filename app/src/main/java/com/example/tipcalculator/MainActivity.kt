@@ -63,11 +63,11 @@ class MainActivity : AppCompatActivity() {
             reference.tvTotalAmount.text=""
             return
         }
-        var Base = reference.etAmount.text.toString().toInt()
-        var TipPercent = reference.seekBar.progress
-        var Tip = (Base*TipPercent*0.01).toInt()
+        var Base = reference.etAmount.text.toString().toFloat()
+        var TipPercent = reference.seekBar.progress.toFloat()
+        var Tip = (Base*TipPercent*0.01).toFloat()
 
-        this.reference.tvTipAmount.text=Tip.toString()
-        this.reference.tvTotalAmount.text=(Tip+Base).toString()
+        this.reference.tvTipAmount.text="%.2f".format(Tip)
+        this.reference.tvTotalAmount.text="%.2f".format(Tip+Base)
     }
 }
